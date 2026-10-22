@@ -10,6 +10,6 @@ const interviewSchema = new mongoose.Schema({
     strenths: { type: String, default: "" },
     improvement: { type: String, default: "" },
     Status: { type: Boolean, default: "true" },
-    Created: { type: Date.now, default: null }
+    CreateAdd: { type: Date, default: Date.now() }
 })
-model.exports = new mongoose.model("interviews", jobSchema)
+module.exports = new mongoose.model("interviews", jobSchema)

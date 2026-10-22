@@ -10,6 +10,6 @@ const jobSchema = new mongoose.Schema({
     Description: { type: String, default: "" },
     Vacancies: { type: String, default: "" },
     Status: { type: String, default: "" },
-    created: { type: String, default: "" },
+    CreateAdd: { type: Date, default: Date.now() }
 })
-model.exports = new mongoose.model("jobs", jobSchema)
+module.exports = new mongoose.model("jobs", jobSchema)

@@ -9,6 +9,6 @@ const reportsSchema = new mongoose.Schema({
     description: { type: String, default: "" },
     vacancies: { type: String, default: "" },
     Status: { type: Boolean, default: "true" },
-    Created: { type: Date.now, default: null }
+    CreateAdd: { type: Date, default: Date.now() }
 })
-model.exports = new mongoose.model("reports", reportsSchema)
+module.exports = new mongoose.model("reports", reportsSchema)

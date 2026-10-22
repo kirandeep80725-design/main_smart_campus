@@ -1,4 +1,3 @@
-const e = require("express");
 const job = require("./jobmodel")
 const addData = (req, res) => {
     let validationErrors = [];
@@ -41,7 +40,7 @@ const addData = (req, res) => {
             .then((jobtitleData) => {
                 if (!jobtitleData) {
                     let jobObj = new jobtitle();
-                    
+
                     jobObj.jobtitle = req.body.jobtitle
                     jobObj.expertise = req.body.expertise
                     jobObj.education = req.body.education
@@ -87,4 +86,4 @@ const addData = (req, res) => {
                 })
             })
     }
-}           
+}

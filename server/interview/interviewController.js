@@ -1,92 +1,99 @@
-const job = require("./interviewmodel")
+const job = require("./interviewmodel");
+
 const addData = (req, res) => {
     let validationErrors = [];
+
+    // Validation
     if (!req.body.userid) {
-        validationErrors.push("userid is required")
+        validationErrors.push("userid is required");
     }
     if (!req.body.jobid) {
-        validationErrors.push("jobid is required")
+        validationErrors.push("jobid is required");
     }
     if (!req.body.resumeid) {
-        validationErrors.push("resumeid is required")
+        validationErrors.push("resumeid is required");
     }
     if (!req.body.questions) {
-        validationErrors.push("questions is required")
+        validationErrors.push("questions is required");
     }
     if (!req.body.totalscore) {
-        validationErrors.push("totalscore is required")
+        validationErrors.push("totalscore is required");
     }
     if (!req.body.feedback) {
-        validationErrors.push("feedback is required")
+        validationErrors.push("feedback is required");
     }
     if (!req.body.strengths) {
-        validationErrors.push("strengths is required")
+        validationErrors.push("strengths is required");
     }
     if (!req.body.improvements) {
-        validationErrors.push("improvements is required")
+        validationErrors.push("improvements is required");
     }
 
-
+    // Return validation errors
     if (validationErrors.length > 0) {
-        res.json({
-            Status: 422,
-            Success: false,
-            message: "Validation error occurs",
+        return res.status(422).json({
+            status: 422,
+            success: false,
+            message: "Validation errors occurred",
             errors: validationErrors
-        })
-    } else {
-        job.FindOne({
-                jobtitle: req.body.jobtitle
-            })
-            .then((interviewData) => {
-                if (!interviewData) {
-                    let interviewObj = new jobtitle();
-
-                    interviewObj.userid = req.body.userid
-                    interviewObj.jobid = req.body.jobid
-                    interviewObj.resumeid = req.body.resumeid
-                    interviewObj.questions = req.body.questions
-                    interviewObj.totalscore = req.body.totalscore
-                    interviewObj.feedback = req.body.feedback
-                    interviewObj.strengths = req.body.strengths
-                    interviewObj.improvements = req.body.improvements
-
-
-                    interviewObj.save()
-                        .then((resDate) => {
-                            res.json({
-                                Status: 200,
-                                Success: true,
-                                message: "DATA ADDED SUCCESSFULLY",
-                                data: resDate
-                            })
-
-                        })
-                        .Catch((err) => {
-                            res.json({
-                                Status: 500,
-                                Success: false,
-                                message: "Inteernal server error",
-                                errors: err.message
-                            })
-                        })
-                } else {
-                    res.json({
-                        Status: 422,
-                        Success: false,
-                        message: "Data already exit",
-                        data: resumedata
-                    })
-                }
-
-            })
-            .Catch((err) => {
-                res.json({
-                    Status: 500,
-                    Success: false,
-                    message: "Internal server error",
-                    errors: err.message
-                })
-            })
+        });
     }
-}
+
+    // Check whether interview data already exists
+    job.findOne({
+            userid: req.body.userid,
+            jobid: req.body.jobid,
+            resumeid: req.body.resumeid
+        })
+        .then((interviewData) => {
+            if (!interviewData) {
+                let interviewObj = new job();
+
+                interviewObj.userid = req.body.userid;
+                interviewObj.jobid = req.body.jobid;
+                interviewObj.resumeid = req.body.resumeid;
+                interviewObj.questions = req.body.questions;
+                interviewObj.totalscore = req.body.totalscore;
+                interviewObj.feedback = req.body.feedback;
+                interviewObj.strengths = req.body.strengths;
+                interviewObj.improvements = req.body.improvements;
+
+                // Save data in MongoDB
+                interviewObj.save()
+                    .then((resData) => {
+                        return res.status(201).json({
+                            status: 201,
+                            success: true,
+                            message: "Interview data added successfully",
+                            data: resData
+                        });
+                    })
+                    .catch((err) => {
+                        return res.status(500).json({
+                            status: 500,
+                            success: false,
+                            message: "Internal server error",
+                            errors: err.message
+                        });
+                    });
+
+            } else {
+                return res.status(409).json({
+                    status: 409,
+                    success: false,
+                    message: "Interview data already exists",
+                    data: interviewData
+                });
+            }
+        })
+        .catch((err) => {
+            return res.status(500).json({
+                status: 500,
+                success: false,
+                message: "Internal server error",
+                errors: err.message
+            });
+        });
+};
+
+module.exports = { addData };

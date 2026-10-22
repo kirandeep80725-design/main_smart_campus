@@ -1,7 +1,8 @@
-const e = require("express");
 const resume = require("./resumemodel")
+
 const addData = (req, res) => {
     let validationErrors = [];
+
     if (!req.body.Title) {
         validationErrors.push("Title is required")
     }
@@ -112,3 +113,7 @@ const addData = (req, res) => {
             })
     }
 };
+
+module.exports = {
+    addData
+}

@@ -16,9 +16,9 @@ const resumeSchema = new mongoose.Schema({
     Strenths: { type: String, default: "" },
     Weakness: { type: String, default: "" },
     Status: { type: Boolean, default: true },
-    CreateAdd: { type: Date, default: date }
+    CreateAdd: { type: Date, default: Date.now() }
 
 
 })
 
-model.exports = new mongoose.model("categories", resumeSchema)
+module.exports = new mongoose.model("resume", resumeSchema)
