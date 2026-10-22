@@ -1,4 +1,3 @@
-const { create } = require("axios")
 const mongoose = require("mongoose")
 const interviewSchema = new mongoose.Schema({
     userid: { type: String, default: "" },
@@ -12,4 +11,4 @@ const interviewSchema = new mongoose.Schema({
     Status: { type: Boolean, default: "true" },
     CreateAdd: { type: Date, default: Date.now() }
 })
-module.exports = new mongoose.model("interviews", jobSchema)
+module.exports = new mongoose.model("interviews", interviewSchema)

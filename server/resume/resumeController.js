@@ -53,7 +53,7 @@ const addData = (req, res) => {
             errors: validationErrors
         })
     } else {
-        resume.FindOne({
+        resume.findOne({
                 Title: req.body.Title
             })
             .then((TitleData) => {

@@ -42,7 +42,7 @@ const addData = (req, res) => {
         });
     }
 
-    // Check whether report already exists for this user
+
     reports.findOne({
             userid: req.body.userid
         })

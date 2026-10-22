@@ -1,15 +1,14 @@
-const { create } = require("axios")
 const mongoose = require("mongoose")
 const jobSchema = new mongoose.Schema({
-    Jobtitle: { type: String, default: "" },
-    Expertise: { type: String, default: "" },
-    Experience: { type: String, default: "" },
-    Education: { type: String, default: "" },
-    Skills: { type: String, default: "" },
-    Payscale: { type: String, default: "" },
-    Description: { type: String, default: "" },
-    Vacancies: { type: String, default: "" },
-    Status: { type: String, default: "" },
-    CreateAdd: { type: Date, default: Date.now() }
+    jobtitle: { type: String, default: "" },
+    expertise: { type: String, default: "" },
+    experience: { type: String, default: "" },
+    education: { type: String, default: "" },
+    skills: { type: String, default: "" },
+    payscale: { type: String, default: "" },
+    description: { type: String, default: "" },
+    vacancies: { type: String, default: "" },
+    status: { type: String, default: "" },
+    createAdd: { type: Date, default: Date.now() }
 })
-module.exports = new mongoose.model("jobs", jobSchema)
+module.exports = new mongoose.model("job", jobSchema)

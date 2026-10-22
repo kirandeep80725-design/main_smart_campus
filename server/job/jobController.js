@@ -1,6 +1,8 @@
 const job = require("./jobmodel")
+
 const addData = (req, res) => {
     let validationErrors = [];
+
     if (!req.body.jobtitle) {
         validationErrors.push("jobtitle is required")
     }
@@ -34,7 +36,7 @@ const addData = (req, res) => {
             errors: validationErrors
         })
     } else {
-        job.FindOne({
+        job.findOne({
                 jobtitle: req.body.jobtitle
             })
             .then((jobtitleData) => {
@@ -59,7 +61,7 @@ const addData = (req, res) => {
                             })
 
                         })
-                        .Catch((err) => {
+                        .catch((err) => {
                             res.json({
                                 Status: 500,
                                 Success: false,
@@ -77,7 +79,7 @@ const addData = (req, res) => {
                 }
 
             })
-            .Catch((err) => {
+            .catch((err) => {
                 res.json({
                     Status: 500,
                     Success: false,
@@ -86,4 +88,7 @@ const addData = (req, res) => {
                 })
             })
     }
+};
+module.exports = {
+    addData
 }
